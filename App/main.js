@@ -1,57 +1,31 @@
-//WEBVIEW//
-//*GOOGLE CAN CHANGE CLASSES AT ANY TIME, SO THAT CODE MAY BE OUTDATED!*//
+//WEBVIEW
+//GOOGLE CAN CHANGE CLASS NAMES AT ANY TIME, SO CODE MAY NOT WORK! 
 var wv = document.querySelector("webview");
 
-wv.addEventListener("loadcommit", function() {
-  wv.insertCSS({
-    code: "*::-webkit-scrollbar { display:none  !important; }",
-    runAt: "document_start"
-  });
-});
-wv.addEventListener("loadcommit", function() {
-  wv.insertCSS({
-    code: "#lQGP9e { display:none  !important; }",
-    runAt: "document_start"
-  });
-});
-wv.addEventListener("loadcommit", function() {
-  wv.insertCSS({
-    code: "#gbwa { display:none  !important; }",
-    runAt: "document_start"
-  });
-});
-wv.addEventListener("loadcommit", function() {
-  wv.insertCSS({
-    code: ".gb_ga { display:none  !important; }",
-    runAt: "document_start"
-  });
-});
-wv.addEventListener("loadcommit", function() {
-  wv.insertCSS({
-    code: ".gb_C { display:none  !important; }",
-    runAt: "document_start"
-  });
-});
-wv.addEventListener("loadcommit", function() {
-  wv.insertCSS({
-    code: ".gb_y { display:none  !important; }",
-    runAt: "document_start"
-  });
-});
-wv.addEventListener("loadcommit", function() {
-  wv.insertCSS({
-    code: ".gb_ec { display:none  !important; }",
-    runAt: "document_start"
-  });
-});
-wv.addEventListener("loadcommit", function() {
-  wv.insertCSS({
-    code: ".gb_gc { display:none  !important; }",
-    runAt: "document_start"
-  });
-});
+function webView () {
+  var a = "#lQGP9e { display:none  !important; }"; //NO HANGOUTS
+  var b = "#gbwa { display:none  !important; }"; //NO GOOGLE APPS
+//YOU CAN ADD YOUR OWN RULE: var x = "selector { style }";
+  var scrollbar = "*::-webkit-scrollbar { display:none  !important; }"; //NO SCROLLBAR
+  
+  var rules = [a, b, scrollbar]; //ADD YOUR RULE NAME TO ARRAY
+  for (var val of rules) {
+    template(val);
+  }
+  
+  function template(x) {
+    wv.addEventListener("loadcommit", function() {
+    wv.insertCSS({
+      code: String(x),
+      runAt: "document_start"
+    });
+    });
+  }
+}
 
-//OPEN LINKS IN BROWSER WINDOW//
+webView();
+
+//OPEN LINKS IN BROWSER WINDOW
 wv.addEventListener("newwindow", function (e) {
   e.preventDefault();
   chrome.browser.openTab({
